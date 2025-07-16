@@ -1,4 +1,4 @@
-from flask import Flask , url_for, request
+from flask import Flask , url_for, request, render_template
 from markupsafe import escape
 app = Flask(__name__)
 
@@ -9,12 +9,14 @@ def index():
 @app.route('/login', methods= ['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        return do_the_login()
-    return "Login Page"
+        return "Logged in successfully!"
+    else:
+        return "Você precisa fazer login!"
 
 @app.route("/hello")
-def hello(name="Lucas"):
-    return f"Hello, World!"
+@app.route("/hello/<name>")
+def hello(name=None):
+    return render_template('hello.html')
 
 
 @app.route('/user/<username>')
